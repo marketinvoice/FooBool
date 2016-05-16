@@ -4,6 +4,8 @@ import Graphics.Element exposing (..)
 import Keyboard
 import Text
 import Time exposing (..)
+import Signal exposing(..)
+import Signal.Time exposing (settledAfter)
 import Window
 import Random
 
@@ -11,9 +13,8 @@ import Random
 (halfWidth,halfHeight) = (400,200)
 
 maxVelocity = 200
-scoredTicker = 0
 
-type State = Play | Pause | RiskScored | SalesScored
+type State = Play | Pause | PauseReset | RiskScored | SalesScored
 
 type alias Ball =
     { x : Float
@@ -36,7 +37,8 @@ type alias Goal =
     }
 
 type alias Game =
-    { state : State
+    { space : Bool
+    , state : State
     , ball : Ball
     , player1 : Player
     , player2 : Player
@@ -56,7 +58,7 @@ type alias Velocity =
     }
 
 type alias Input =
-    { space : Bool
+    { spaceNew : Bool
     , dir1 : Direction
     , dir2 : Direction
     , delta : Time
@@ -64,40 +66,42 @@ type alias Input =
 
 
 player : Float -> Player
-player x =
-    Player x 0 0 0 0
+player x = Player x 0 0 0 0
 
 goal : Float -> Goal
-goal x =
-    Goal x 0
+goal x = Goal x 0
 
 newBallPlease : Ball
-newBallPlease =
-    Ball 0 0 0 0 
+newBallPlease = Ball 0 0 0 0 
 
 defaultGame : Game
 defaultGame =
-    { state = Pause
+    { space = False
+    , state = PauseReset
     , ball = newBallPlease
     , player1 = player (35-halfWidth)
     , player2 = player (halfWidth-35)
     , goal1 = goal (10-halfWidth)
     , goal2 = goal (halfWidth-10)
     , deltaState = 0
-    }
-
-near k c n =
-    n >= k-c && n <= k+c
-
-within obj ball sizex sizey =
-    near obj.x (sizex / 2) ball.x && near obj.y (sizey / 2) ball.y
-  
+    } 
 
 -- UPDATE
 
+checkSpaceBarState : Bool -> Bool -> Bool
+checkSpaceBarState old new = old == True && new == False
+
+near : Float -> Float -> Float -> Bool
+near posA hitBox posB = posB >= posA - hitBox && posB <= posA + hitBox
+
+within obj ball sizex sizey = near obj.x (sizex / 2) ball.x && near obj.y (sizey / 2) ball.y
+
 update : Input -> Game -> Game
-update {space,dir1,dir2,delta} ({state,ball,player1,player2,goal1,goal2,deltaState} as game) =
+update {spaceNew,dir1,dir2,delta} ({space,state,ball,player1,player2,goal1,goal2,deltaState} as game) =
   let
+    openOrCloseMenu = 
+        checkSpaceBarState space spaceNew
+
     score1 =
         if within goal2 ball 15 72 then 1 else 0
 
@@ -105,9 +109,11 @@ update {space,dir1,dir2,delta} ({state,ball,player1,player2,goal1,goal2,deltaSta
         if within goal1 ball 15 72 then 1 else 0
 
     newState =
-        if space && (state == Pause || state == RiskScored || state == SalesScored) then
+        if openOrCloseMenu && (state == RiskScored || state == SalesScored) then
+            PauseReset
+        else if openOrCloseMenu && (state == Pause || state == PauseReset) then
             Play
-        else if space && state == Play then
+        else if openOrCloseMenu && state == Play then        
             Pause
         else if score1 > score2 then
             RiskScored
@@ -117,26 +123,32 @@ update {space,dir1,dir2,delta} ({state,ball,player1,player2,goal1,goal2,deltaSta
             state
 
     newDelta =
-        if score1 /= score2 || state == Play || state == Pause then
-            0
-        else 
-            deltaState + 10
-
+        if score1 /= score2 || state == Play || state == Pause 
+        then 0
+        else deltaState + 10
 
     newBall =
-        if newState == RiskScored || newState == SalesScored then
-            newBallPlease
-        else if state == Pause then
-            ball 
-        else
-            updateBall delta ball player1 player2
+        if newState == RiskScored || newState == SalesScored then newBallPlease
+        else if state == Pause then ball 
+        else updateBall delta ball player1 player2
+
+    player1New = 
+        if state == PauseReset then resetPlayer score1 (35-halfWidth) player1
+        else if state == Pause then player1
+        else updatePlayer delta dir1.y dir1.x score1 player1
+
+    player2New = 
+        if state == PauseReset  then resetPlayer score2 (halfWidth-35) player2
+        else if state == Pause then player2
+        else updatePlayer delta dir2.y dir2.x score2 player2
 
     in
         { game |
+            space = spaceNew,
             state = newState,
             ball = newBall,
-            player1 = updatePlayer delta dir1.y dir1.x score1 player1,
-            player2 = updatePlayer delta dir2.y dir2.x score2 player2,
+            player1 = player1New,
+            player2 = player2New,
             goal1 = goal1,
             goal2 = goal2,
             deltaState = newDelta   
@@ -155,10 +167,9 @@ playerImpetus player ball =
 
 limitMaxVelocity : Float -> Float
 limitMaxVelocity velocity = 
-    if velocity > maxVelocity then
-        maxVelocity
-    else
-        velocity
+    if velocity > maxVelocity 
+    then maxVelocity
+    else velocity
 
 updateBall : Time -> Ball -> Player -> Player -> Ball
 updateBall dt ball player1 player2 =
@@ -175,6 +186,14 @@ updateBall dt ball player1 player2 =
                 vx = limitMaxVelocity ((stepV ball.vx p1RushKeeper p2RushKeeper) + p1i.vx + p2i.vx) * wallVelocity,
                 vy = limitMaxVelocity ((stepV ball.vy (ball.y < 7 - halfHeight) (ball.y > halfHeight - 7)) + p1i.vy + p2i.vy) * wallVelocity
             }
+
+resetPlayer : Int -> Float -> Player -> Player
+resetPlayer points start player = 
+    { player |
+        x = start,
+        y = 0,
+        score = player.score + points
+    }
 
 updatePlayer : Time -> Int -> Int -> Int -> Player -> Player
 updatePlayer dt dirv dirh points player =
@@ -201,66 +220,77 @@ stepV v lowerCollision upperCollision =
     else if upperCollision then -(abs v)
     else v
 
--- VIEW
+-- VIEW CONSTANTS
 
-view : (Int,Int) -> Game -> Element
-view (w,h) game =
-    let
-        goalArea = halfWidth / 4
-        scores = txt (Text.height 50) (toString game.player1.score ++ "  " ++ toString game.player2.score) white
-    in
-        container w h middle <|
-        collage gameWidth gameHeight
-        [ rect gameWidth gameHeight -- Field
-          |> filled pitchGreen
-        , path [(0, -halfHeight), (0, halfHeight)] -- Halfway
-          |> traced (dashed white)
-        , path 
+txt f string rgb = Text.fromString string |> Text.color rgb |> Text.monospace |> f |> leftAligned
+txtBold f string rgb = Text.fromString string |> Text.bold |> Text.color rgb |> Text.monospace |> f |> leftAligned
+
+msg = "SPACE to start, WASD and &uarr;&larr;&darr;&rarr; to move"
+title = "MarketInvoice Foo.bool"
+pitchGreen = rgb 100 140 100
+textGreen = rgb 160 200 160
+field = rect gameWidth gameHeight |> filled pitchGreen
+halfway = path [(0, -halfHeight), (0, halfHeight)] |> traced (dashed white)
+
+goalArea = halfWidth / 4    
+goalRed game = makeGoal game.goal1 red 10 72
+goalRedLine = path 
             [ (halfWidth, -(goalArea))
             , (halfWidth - (goalArea), -(goalArea))
             , (halfWidth - (goalArea), (goalArea))
             , (halfWidth, (goalArea))
-            ] -- Keeper
-          |> traced (dashed white)
-        , path 
+            ] |> traced (dashed white)        
+
+goalBlue game = makeGoal game.goal2 blue 10 72
+goalBlueLine = path 
             [ (-halfWidth, (goalArea))
             , (-halfWidth + (goalArea), (goalArea))
             , (-halfWidth + (goalArea), -(goalArea))
             , (-halfWidth, -(goalArea))
-            ] -- Keeper
-          |> traced (dashed white)
-        , oval 15 15
-          |> make game.ball white -- Ball
+            ] |> traced (dashed white)
+
+goalCelebration game text =  txtBold (Text.height 140) text (generateColor game.deltaState) |> toForm |> move (0, 10) |> rotate (degrees game.deltaState)
+rejected game = goalCelebration game "REJECTED!"
+launched game = goalCelebration game "LAUNCHED!"
+
+menuItems  = 
+    [ rect (1.7 * halfWidth) 40 |> filled white
+    , txt (Text.height 24) msg black |> toForm
+    , txt (Text.height 32) "Risk" red |> toForm |> move (-54, halfHeight - 40)
+    , txt (Text.height 32) "Sales" blue |> toForm |> move (64, halfHeight - 40)
+    , txtBold (Text.height 35) title black |> toForm |> move (0, 40)
+    ]
+    |> group
+    |> move (0, 40 - halfHeight) -- Text
+
+-- MAIN VIEW
+
+view : (Int,Int) -> Game -> Element
+view (w,h) game =
+    let        
+        scores = txt (Text.height 50) (toString game.player1.score ++ "  " ++ toString game.player2.score) white
+    in
+        container w h middle <|
+        collage gameWidth gameHeight
+        [ field
+        , halfway
+        , goalRedLine
+        , goalBlueLine
+        , oval 15 15 |> make game.ball white -- Ball
         , makePlayer game.player1 red 
         , makePlayer game.player2 blue
-        , makeGoal game.goal1 red 10 72
-        , makeGoal game.goal2 blue 10 72
+        , goalRed game
+        , goalBlue game
         , toForm scores
           |> move (0, halfHeight - 40) -- Scores
         , if game.state == Play 
           then spacer 1 1 |> toForm
-          else 
-            [ rect (1.7 * halfWidth) 40 
-              |> filled white
-            , txt (Text.height 24) msg black
-              |> toForm
-            , txt (Text.height 32) "Risk" red
-              |> toForm
-              |> move (-54, halfHeight - 40)
-            , txt (Text.height 32) "Sales" blue
-              |> toForm
-              |> move (64, halfHeight - 40)
-            , txtBold (Text.height 35) title black
-              |> toForm
-              |> move (0, 40)
-            ] 
-          |> group
-          |> move (0, 40 - halfHeight) -- Text
+          else menuItems
         , if game.state == RiskScored
-          then txtBold (Text.height 140) "REJECTED!" (generateColor game.deltaState) |> toForm |> move (0, 10) |> rotate (degrees game.deltaState)
+          then rejected game
           else spacer 1 1 |> toForm
         , if game.state == SalesScored
-          then txtBold (Text.height 140) "LAUNCHED!" (generateColor game.deltaState) |> toForm |> move (0, 10) |> rotate (degrees game.deltaState)
+          then launched game
           else spacer 1 1 |> toForm
         ]
 
@@ -276,43 +306,13 @@ generateColor gen =
             3 -> green
             _ -> blue
 
-pitchGreen =
-  rgb 100 140 100
+numGen : Int -> Int -> Float -> (Int, Random.Seed)
+numGen from to rand = Random.generate (Random.int from to) (Random.initialSeed (round rand))
 
-textGreen =
-  rgb 160 200 160
-
-txtBold f string rgb =
-    Text.fromString string
-        |> Text.bold
-        |> Text.color rgb
-        |> Text.monospace
-        |> f
-        |> leftAligned
-
-txt f string rgb =
-    Text.fromString string
-        |> Text.color rgb
-        |> Text.monospace
-        |> f
-        |> leftAligned
-
-numGen : Int -> Int -> Float -> (Int, Random.Seed )
-numGen from to rand = 
-    Random.generate (Random.int from to) (Random.initialSeed (round rand))
-
-msg = "SPACE to start, WASD and &larr;&uarr;&darr;&rarr; to move"
-
-title = "MarketInvoice Foo.bool"
-
-make obj rgb shape =
-    shape
-        |> filled rgb
-        |> move (obj.x, obj.y)
+make obj rgb shape = shape |> filled rgb |> move (obj.x, obj.y)
 
 makeGoal obj rgb width height = 
-    [ rect (width + 2) (height + 2)
-      |> filled white
+    [ rect (width + 2) (height + 2) |> filled white
     , path 
         [ (width / 2, height / -2)
         , (width / -2, height / -2)
@@ -329,16 +329,10 @@ makePlayer obj rgb =
     let 
         (number, _) = numGen 2 15 42
     in
-        [ rect 20 26
-          |> filled rgb
-        , rect 8 8 
-          |> filled rgb
-          |> move (-12, 8)
-        , rect 8 8
-          |> filled rgb
-          |> move (12, 8)
-        , toForm (txt identity (toString number) white)
-          |> move (0, 4)
+        [ rect 20 26 |> filled rgb
+        , rect 8 8  |> filled rgb |> move (-12, 8)
+        , rect 8 8 |> filled rgb |> move (12, 8)
+        , toForm (txt identity (toString number) white) |> move (0, 4)
         ] 
         |> group
         |> move (obj.x, obj.y)
@@ -348,10 +342,10 @@ makePlayer obj rgb =
 
 gameState : Signal Game
 gameState =
-  Signal.foldp update defaultGame input
+    Signal.foldp update defaultGame input
 
 delta =
-  Signal.map inSeconds (fps 35)
+    Signal.map inSeconds (fps 35)
 
 input : Signal Input
 input =

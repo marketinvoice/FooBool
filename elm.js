@@ -1,6 +1,5 @@
-<!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><title>Main</title><style>html,head,body { padding:0; margin:0; }
-body { font-family: calibri, helvetica, arial, sans-serif; }</style><script type="text/javascript">var Elm = Elm || { Native: {} };Elm.Native.Basics = {};
+var Elm = Elm || { Native: {} };
+Elm.Native.Basics = {};
 Elm.Native.Basics.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
 	localRuntime.Native.Basics = localRuntime.Native.Basics || {};
@@ -136,6 +135,7 @@ Elm.Native.Basics.make = function(localRuntime) {
 		isInfinite: isInfinite
 	};
 };
+
 Elm.Native.Port = {};
 
 Elm.Native.Port.make = function(localRuntime) {
@@ -267,6 +267,7 @@ Elm.Native.Port.make = function(localRuntime) {
 		outboundSignal: outboundSignal
 	};
 };
+
 if (!Elm.fullscreen) {
 	(function() {
 		'use strict';
@@ -903,6 +904,7 @@ if (!Elm.fullscreen) {
 			: fun(a)(b)(c)(d)(e)(f)(g)(h)(i);
 	}
 }
+
 Elm.Native = Elm.Native || {};
 Elm.Native.Utils = {};
 Elm.Native.Utils.make = function(localRuntime) {
@@ -1433,6 +1435,7 @@ Elm.Native.Utils.make = function(localRuntime) {
 		toString: toString
 	};
 };
+
 Elm.Basics = Elm.Basics || {};
 Elm.Basics.make = function (_elm) {
    "use strict";
@@ -1554,7 +1557,8 @@ Elm.Basics.make = function (_elm) {
                                ,LT: LT
                                ,EQ: EQ
                                ,GT: GT};
-};Elm.Maybe = Elm.Maybe || {};
+};
+Elm.Maybe = Elm.Maybe || {};
 Elm.Maybe.make = function (_elm) {
    "use strict";
    _elm.Maybe = _elm.Maybe || {};
@@ -1666,7 +1670,8 @@ Elm.Maybe.make = function (_elm) {
                               ,oneOf: oneOf
                               ,Just: Just
                               ,Nothing: Nothing};
-};Elm.Native.List = {};
+};
+Elm.Native.List = {};
 Elm.Native.List.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
 	localRuntime.Native.List = localRuntime.Native.List || {};
@@ -1830,6 +1835,7 @@ Elm.Native.List.make = function(localRuntime) {
 	};
 	return localRuntime.Native.List.values = Elm.Native.List.values;
 };
+
 Elm.List = Elm.List || {};
 Elm.List.make = function (_elm) {
    "use strict";
@@ -2101,7 +2107,8 @@ Elm.List.make = function (_elm) {
                              ,sort: sort
                              ,sortBy: sortBy
                              ,sortWith: sortWith};
-};Elm.Native.Transform2D = {};
+};
+Elm.Native.Transform2D = {};
 Elm.Native.Transform2D.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
 	localRuntime.Native.Transform2D = localRuntime.Native.Transform2D || {};
@@ -2211,6 +2218,7 @@ Elm.Native.Transform2D.make = function(localRuntime) {
 		*/
 	};
 };
+
 Elm.Transform2D = Elm.Transform2D || {};
 Elm.Transform2D.make = function (_elm) {
    "use strict";
@@ -2240,6 +2248,7 @@ Elm.Transform2D.make = function (_elm) {
                                     ,scaleX: scaleX
                                     ,scaleY: scaleY};
 };
+
 // setup
 Elm.Native = Elm.Native || {};
 Elm.Native.Graphics = Elm.Native.Graphics || {};
@@ -2903,6 +2912,7 @@ Elm.Native.Graphics.Collage.make = function(localRuntime) {
 		collage: F3(collage)
 	};
 };
+
 Elm.Native.Color = {};
 Elm.Native.Color.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -2942,6 +2952,7 @@ Elm.Native.Color.make = function(localRuntime) {
 		toCss: toCss
 	};
 };
+
 Elm.Color = Elm.Color || {};
 Elm.Color.make = function (_elm) {
    "use strict";
@@ -3154,6 +3165,7 @@ Elm.Color.make = function (_elm) {
                               ,gray: gray
                               ,darkGray: darkGray};
 };
+
 // setup
 Elm.Native = Elm.Native || {};
 Elm.Native.Graphics = Elm.Native.Graphics || {};
@@ -3889,6 +3901,7 @@ Elm.Native.Graphics.Element.make = function(localRuntime) {
 		markdown: markdown
 	};
 };
+
 Elm.Native.Text = {};
 Elm.Native.Text.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -4176,6 +4189,7 @@ Elm.Native.Text.make = function(localRuntime) {
 		renderHtml: renderHtml
 	};
 };
+
 Elm.Text = Elm.Text || {};
 Elm.Text.make = function (_elm) {
    "use strict";
@@ -4243,7 +4257,8 @@ Elm.Text.make = function (_elm) {
                              ,Under: Under
                              ,Over: Over
                              ,Through: Through};
-};Elm.Graphics = Elm.Graphics || {};
+};
+Elm.Graphics = Elm.Graphics || {};
 Elm.Graphics.Element = Elm.Graphics.Element || {};
 Elm.Graphics.Element.make = function (_elm) {
    "use strict";
@@ -4572,7 +4587,8 @@ Elm.Graphics.Element.make = function (_elm) {
                                          ,topRightAt: topRightAt
                                          ,bottomLeftAt: bottomLeftAt
                                          ,bottomRightAt: bottomRightAt};
-};Elm.Graphics = Elm.Graphics || {};
+};
+Elm.Graphics = Elm.Graphics || {};
 Elm.Graphics.Collage = Elm.Graphics.Collage || {};
 Elm.Graphics.Collage.make = function (_elm) {
    "use strict";
@@ -4802,7 +4818,8 @@ Elm.Graphics.Collage.make = function (_elm) {
                                          ,Smooth: Smooth
                                          ,Sharp: Sharp
                                          ,Clipped: Clipped};
-};Elm.Native.Debug = {};
+};
+Elm.Native.Debug = {};
 Elm.Native.Debug.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
 	localRuntime.Native.Debug = localRuntime.Native.Debug || {};
@@ -4868,6 +4885,7 @@ Elm.Native.Debug.make = function(localRuntime) {
 		watchSummary: F3(watchSummary)
 	};
 };
+
 Elm.Debug = Elm.Debug || {};
 Elm.Debug.make = function (_elm) {
    "use strict";
@@ -4888,7 +4906,8 @@ Elm.Debug.make = function (_elm) {
                               ,watch: watch
                               ,watchSummary: watchSummary
                               ,trace: trace};
-};Elm.Result = Elm.Result || {};
+};
+Elm.Result = Elm.Result || {};
 Elm.Result.make = function (_elm) {
    "use strict";
    _elm.Result = _elm.Result || {};
@@ -5041,7 +5060,8 @@ Elm.Result.make = function (_elm) {
                                ,formatError: formatError
                                ,Ok: Ok
                                ,Err: Err};
-};Elm.Native.Signal = {};
+};
+Elm.Native.Signal = {};
 
 Elm.Native.Signal.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -5511,6 +5531,7 @@ Elm.Native.Signal.make = function(localRuntime) {
 		delay: F2(delay)
 	};
 };
+
 Elm.Native.Task = {};
 
 Elm.Native.Task.make = function(localRuntime) {
@@ -5736,6 +5757,7 @@ Elm.Native.Task.make = function(localRuntime) {
 		sleep: sleep
 	};
 };
+
 Elm.Task = Elm.Task || {};
 Elm.Task.make = function (_elm) {
    "use strict";
@@ -5910,7 +5932,8 @@ Elm.Task.make = function (_elm) {
                              ,fromResult: fromResult
                              ,spawn: spawn
                              ,sleep: sleep};
-};Elm.Signal = Elm.Signal || {};
+};
+Elm.Signal = Elm.Signal || {};
 Elm.Signal.make = function (_elm) {
    "use strict";
    _elm.Signal = _elm.Signal || {};
@@ -6003,7 +6026,8 @@ Elm.Signal.make = function (_elm) {
                                ,message: message
                                ,forwardTo: forwardTo
                                ,Mailbox: Mailbox};
-};Elm.Signal = Elm.Signal || {};
+};
+Elm.Signal = Elm.Signal || {};
 Elm.Signal.Discrete = Elm.Signal.Discrete || {};
 Elm.Signal.Discrete.make = function (_elm) {
    "use strict";
@@ -6046,7 +6070,8 @@ Elm.Signal.Discrete.make = function (_elm) {
                                         ,whenChange: whenChange
                                         ,whenChangeTo: whenChangeTo
                                         ,folde: folde};
-};Elm.Signal = Elm.Signal || {};
+};
+Elm.Signal = Elm.Signal || {};
 Elm.Signal.Extra = Elm.Signal.Extra || {};
 Elm.Signal.Extra.make = function (_elm) {
    "use strict";
@@ -6359,7 +6384,8 @@ Elm.Signal.Extra.make = function (_elm) {
                                      ,applyMany: applyMany
                                      ,passiveMap2: passiveMap2
                                      ,withPassive: withPassive};
-};Elm.Native.Time = {};
+};
+Elm.Native.Time = {};
 
 Elm.Native.Time.make = function(localRuntime)
 {
@@ -6468,6 +6494,7 @@ Elm.Native.Time.make = function(localRuntime)
 		read: read
 	};
 };
+
 Elm.Time = Elm.Time || {};
 Elm.Time.make = function (_elm) {
    "use strict";
@@ -6522,7 +6549,8 @@ Elm.Time.make = function (_elm) {
                              ,timestamp: timestamp
                              ,delay: delay
                              ,since: since};
-};Elm.Signal = Elm.Signal || {};
+};
+Elm.Signal = Elm.Signal || {};
 Elm.Signal.Time = Elm.Signal.Time || {};
 Elm.Signal.Time.make = function (_elm) {
    "use strict";
@@ -6584,7 +6612,8 @@ Elm.Signal.Time.make = function (_elm) {
                                     ,since: since
                                     ,delay: delay
                                     ,timestamp: timestamp};
-};Elm.Native.Char = {};
+};
+Elm.Native.Char = {};
 Elm.Native.Char.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
 	localRuntime.Native.Char = localRuntime.Native.Char || {};
@@ -6604,6 +6633,7 @@ Elm.Native.Char.make = function(localRuntime) {
 		toLocaleLower: function(c) { return Utils.chr(c.toLocaleLowerCase()); }
 	};
 };
+
 Elm.Char = Elm.Char || {};
 Elm.Char.make = function (_elm) {
    "use strict";
@@ -6646,7 +6676,8 @@ Elm.Char.make = function (_elm) {
                              ,toLocaleLower: toLocaleLower
                              ,toCode: toCode
                              ,fromCode: fromCode};
-};Elm.Native.String = {};
+};
+Elm.Native.String = {};
 
 Elm.Native.String.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -6987,6 +7018,7 @@ Elm.Native.String.make = function(localRuntime) {
 		fromList: fromList
 	};
 };
+
 Elm.String = Elm.String || {};
 Elm.String.make = function (_elm) {
    "use strict";
@@ -7080,7 +7112,8 @@ Elm.String.make = function (_elm) {
                                ,foldr: foldr
                                ,any: any
                                ,all: all};
-};Elm.Dict = Elm.Dict || {};
+};
+Elm.Dict = Elm.Dict || {};
 Elm.Dict.make = function (_elm) {
    "use strict";
    _elm.Dict = _elm.Dict || {};
@@ -7839,7 +7872,8 @@ Elm.Dict.make = function (_elm) {
                              ,values: values
                              ,toList: toList
                              ,fromList: fromList};
-};Elm.Set = Elm.Set || {};
+};
+Elm.Set = Elm.Set || {};
 Elm.Set.make = function (_elm) {
    "use strict";
    _elm.Set = _elm.Set || {};
@@ -7955,7 +7989,8 @@ Elm.Set.make = function (_elm) {
                             ,diff: diff
                             ,toList: toList
                             ,fromList: fromList};
-};Elm.Native.Keyboard = {};
+};
+Elm.Native.Keyboard = {};
 
 Elm.Native.Keyboard.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -8002,6 +8037,7 @@ Elm.Native.Keyboard.make = function(localRuntime) {
 		presses: presses
 	};
 };
+
 Elm.Keyboard = Elm.Keyboard || {};
 Elm.Keyboard.make = function (_elm) {
    "use strict";
@@ -8094,7 +8130,8 @@ Elm.Keyboard.make = function (_elm) {
                                  ,isDown: isDown
                                  ,keysDown: keysDown
                                  ,presses: presses};
-};Elm.Native = Elm.Native || {};
+};
+Elm.Native = Elm.Native || {};
 Elm.Native.Window = {};
 Elm.Native.Window.make = function make(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -8161,6 +8198,7 @@ Elm.Native.Window.make = function make(localRuntime) {
 		resizeIfNeeded: resizeIfNeeded
 	};
 };
+
 Elm.Random = Elm.Random || {};
 Elm.Random.make = function (_elm) {
    "use strict";
@@ -8437,7 +8475,8 @@ Elm.Random.make = function (_elm) {
                                ,maxInt: maxInt
                                ,generate: generate
                                ,initialSeed: initialSeed};
-};Elm.Window = Elm.Window || {};
+};
+Elm.Window = Elm.Window || {};
 Elm.Window.make = function (_elm) {
    "use strict";
    _elm.Window = _elm.Window || {};
@@ -8454,7 +8493,8 @@ Elm.Window.make = function (_elm) {
                                ,dimensions: dimensions
                                ,width: width
                                ,height: height};
-};Elm.Main = Elm.Main || {};
+};
+Elm.Main = Elm.Main || {};
 Elm.Main.make = function (_elm) {
    "use strict";
    _elm.Main = _elm.Main || {};
@@ -8471,6 +8511,7 @@ Elm.Main.make = function (_elm) {
    $Random = Elm.Random.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
+   $Signal$Time = Elm.Signal.Time.make(_elm),
    $Text = Elm.Text.make(_elm),
    $Time = Elm.Time.make(_elm),
    $Window = Elm.Window.make(_elm);
@@ -8497,61 +8538,21 @@ Elm.Main.make = function (_elm) {
       {ctor: "_Tuple2",_0: obj.x,_1: obj.y},
       A2($Graphics$Collage.filled,rgb,shape));
    });
+   var title = "MarketInvoice Foo.bool";
+   var msg = "SPACE to start, WASD and &uarr;&larr;&darr;&rarr; to move";
    var numGen = F3(function (from,to,rand) {
       return A2($Random.generate,
       A2($Random.$int,from,to),
       $Random.initialSeed($Basics.round(rand)));
    });
-   var generateColor = function (gen) {
-      var _p0 = A3(numGen,0,3,gen);
-      var i = _p0._0;
-      var _p1 = A2($Basics._op["%"],$Basics.round(gen),3);
-      switch (_p1)
-      {case 0: return $Color.orange;
-         case 1: return $Color.yellow;
-         case 2: return $Color.red;
-         case 3: return $Color.green;
-         default: return $Color.blue;}
-   };
-   var goalBlue = function (game) {
-      return A4(makeGoal,game.goal2,$Color.blue,10,72);
-   };
-   var goalRed = function (game) {
-      return A4(makeGoal,game.goal1,$Color.red,10,72);
-   };
-   var textGreen = A3($Color.rgb,160,200,160);
-   var pitchGreen = A3($Color.rgb,100,140,100);
-   var title = "MarketInvoice Foo.bool";
-   var msg = "SPACE to start, WASD and &uarr;&larr;&darr;&rarr; to move";
-   var txtBold = F3(function (f,string,rgb) {
-      return $Graphics$Element.leftAligned(f($Text.monospace(A2($Text.color,
-      rgb,
-      $Text.bold($Text.fromString(string))))));
-   });
-   var goalCelebration = F2(function (game,text) {
-      return A2($Graphics$Collage.rotate,
-      $Basics.degrees(game.deltaState),
-      A2($Graphics$Collage.move,
-      {ctor: "_Tuple2",_0: 0,_1: 10},
-      $Graphics$Collage.toForm(A3(txtBold,
-      $Text.height(140),
-      text,
-      generateColor(game.deltaState)))));
-   });
-   var rejected = function (game) {
-      return A2(goalCelebration,game,"REJECTED!");
-   };
-   var launched = function (game) {
-      return A2(goalCelebration,game,"LAUNCHED!");
-   };
    var txt = F3(function (f,string,rgb) {
       return $Graphics$Element.leftAligned(f($Text.monospace(A2($Text.color,
       rgb,
       $Text.fromString(string)))));
    });
    var makePlayer = F2(function (obj,rgb) {
-      var _p2 = A3(numGen,2,15,42);
-      var number = _p2._0;
+      var _p0 = A3(numGen,2,15,42);
+      var number = _p0._0;
       return A2($Graphics$Collage.move,
       {ctor: "_Tuple2",_0: obj.x,_1: obj.y},
       $Graphics$Collage.group(_U.list([A2($Graphics$Collage.filled,
@@ -8570,6 +8571,46 @@ Elm.Main.make = function (_elm) {
                                       $Basics.toString(number),
                                       $Color.white)))])));
    });
+   var txtBold = F3(function (f,string,rgb) {
+      return $Graphics$Element.leftAligned(f($Text.monospace(A2($Text.color,
+      rgb,
+      $Text.bold($Text.fromString(string))))));
+   });
+   var textGreen = A3($Color.rgb,160,200,160);
+   var pitchGreen = A3($Color.rgb,100,140,100);
+   var generateColor = function (gen) {
+      var _p1 = A3(numGen,0,3,gen);
+      var i = _p1._0;
+      var _p2 = A2($Basics._op["%"],$Basics.round(gen),3);
+      switch (_p2)
+      {case 0: return $Color.orange;
+         case 1: return $Color.yellow;
+         case 2: return $Color.red;
+         case 3: return $Color.green;
+         default: return $Color.blue;}
+   };
+   var goalCelebration = F2(function (game,text) {
+      return A2($Graphics$Collage.rotate,
+      $Basics.degrees(game.deltaState),
+      A2($Graphics$Collage.move,
+      {ctor: "_Tuple2",_0: 0,_1: 10},
+      $Graphics$Collage.toForm(A3(txtBold,
+      $Text.height(140),
+      text,
+      generateColor(game.deltaState)))));
+   });
+   var rejected = function (game) {
+      return A2(goalCelebration,game,"REJECTED!");
+   };
+   var launched = function (game) {
+      return A2(goalCelebration,game,"LAUNCHED!");
+   };
+   var goalBlue = function (game) {
+      return A4(makeGoal,game.goal2,$Color.blue,10,72);
+   };
+   var goalRed = function (game) {
+      return A4(makeGoal,game.goal1,$Color.red,10,72);
+   };
    var stepV = F3(function (v,lowerCollision,upperCollision) {
       return lowerCollision ? $Basics.abs(v) : upperCollision ? 0 - $Basics.abs(v) : v;
    });
@@ -8577,13 +8618,8 @@ Elm.Main.make = function (_elm) {
       return _U.update(obj,
       {x: obj.x + obj.vx * dt,y: obj.y + obj.vy * dt});
    });
-   var resetPlayer = F3(function (points,start,player) {
-      return _U.update(player,
-      {x: start,y: 0,score: player.score + points});
-   });
-   var near = F3(function (posA,hitBox,posB) {
-      return _U.cmp(posB,posA - hitBox) > -1 && _U.cmp(posB,
-      posA + hitBox) < 1;
+   var near = F3(function (k,c,n) {
+      return _U.cmp(n,k - c) > -1 && _U.cmp(n,k + c) < 1;
    });
    var within = F4(function (obj,ball,sizex,sizey) {
       return A3(near,obj.x,sizex / 2,ball.x) && A3(near,
@@ -8595,31 +8631,31 @@ Elm.Main.make = function (_elm) {
       return A4(within,player,ball,40,40) ? {vx: 0.1 * player.vx
                                             ,vy: 0.1 * player.vy} : {vx: 0,vy: 0};
    });
-   var checkSpaceBarState = F2(function (old,$new) {
-      return _U.eq(old,true) && _U.eq($new,false);
-   });
    var Input = F4(function (a,b,c,d) {
-      return {spaceNew: a,dir1: b,dir2: c,delta: d};
+      return {space: a,dir1: b,dir2: c,delta: d};
    });
    var input = A2($Signal.sampleOn,
    delta,
    A5($Signal.map4,
    Input,
-   $Keyboard.space,
+   A2($Signal$Time.limitRate,
+   1,
+   A2($Signal$Time.dropWithin,
+   1000 * $Time.millisecond,
+   $Keyboard.space)),
    $Keyboard.wasd,
    $Keyboard.arrows,
    delta));
    var Velocity = F2(function (a,b) {    return {vy: a,vx: b};});
    var Direction = F2(function (a,b) {    return {y: a,x: b};});
-   var Game = F8(function (a,b,c,d,e,f,g,h) {
-      return {space: a
-             ,state: b
-             ,ball: c
-             ,player1: d
-             ,player2: e
-             ,goal1: f
-             ,goal2: g
-             ,deltaState: h};
+   var Game = F7(function (a,b,c,d,e,f,g) {
+      return {state: a
+             ,ball: b
+             ,player1: c
+             ,player2: d
+             ,goal1: e
+             ,goal2: f
+             ,deltaState: g};
    });
    var Goal = F2(function (a,b) {    return {x: a,y: b};});
    var goal = function (x) {    return A2(Goal,x,0);};
@@ -8633,9 +8669,9 @@ Elm.Main.make = function (_elm) {
    var newBallPlease = A4(Ball,0,0,0,0);
    var SalesScored = {ctor: "SalesScored"};
    var RiskScored = {ctor: "RiskScored"};
-   var PauseReset = {ctor: "PauseReset"};
    var Pause = {ctor: "Pause"};
    var Play = {ctor: "Play"};
+   var scoredTicker = 0;
    var maxVelocity = 200;
    var limitMaxVelocity = function (velocity) {
       return _U.cmp(velocity,
@@ -8644,8 +8680,7 @@ Elm.Main.make = function (_elm) {
    var _p3 = {ctor: "_Tuple2",_0: 400,_1: 200};
    var halfWidth = _p3._0;
    var halfHeight = _p3._1;
-   var defaultGame = {space: false
-                     ,state: PauseReset
+   var defaultGame = {state: Pause
                      ,ball: newBallPlease
                      ,player1: player(35 - halfWidth)
                      ,player2: player(halfWidth - 35)
@@ -8699,7 +8734,7 @@ Elm.Main.make = function (_elm) {
    });
    var update = F2(function (_p5,_p4) {
       var _p6 = _p5;
-      var _p17 = _p6.spaceNew;
+      var _p17 = _p6.space;
       var _p16 = _p6.dir2;
       var _p15 = _p6.dir1;
       var _p14 = _p6.delta;
@@ -8711,57 +8746,35 @@ Elm.Main.make = function (_elm) {
       var _p9 = _p7.goal1;
       var _p8 = _p7.ball;
       var score2 = A4(within,_p9,_p8,15,72) ? 1 : 0;
-      var player2New = _U.eq(_p13,PauseReset) ? A3(resetPlayer,
-      score2,
-      halfWidth - 35,
-      _p12) : _U.eq(_p13,Pause) ? _p12 : A5(updatePlayer,
-      _p14,
-      _p16.y,
-      _p16.x,
-      score2,
-      _p12);
       var score1 = A4(within,_p10,_p8,15,72) ? 1 : 0;
-      var newDelta = !_U.eq(score1,score2) || (_U.eq(_p13,
-      Play) || _U.eq(_p13,Pause)) ? 0 : _p7.deltaState + 10;
-      var player1New = _U.eq(_p13,PauseReset) ? A3(resetPlayer,
-      score1,
-      35 - halfWidth,
-      _p11) : _U.eq(_p13,Pause) ? _p11 : A5(updatePlayer,
-      _p14,
-      _p15.y,
-      _p15.x,
-      score1,
-      _p11);
-      var openOrCloseMenu = A2(checkSpaceBarState,_p7.space,_p17);
-      var newState = openOrCloseMenu && (_U.eq(_p13,
+      var newState = _p17 && (_U.eq(_p13,Pause) || (_U.eq(_p13,
       RiskScored) || _U.eq(_p13,
-      SalesScored)) ? PauseReset : openOrCloseMenu && (_U.eq(_p13,
-      Pause) || _U.eq(_p13,
-      PauseReset)) ? Play : openOrCloseMenu && _U.eq(_p13,
+      SalesScored))) ? Play : _p17 && _U.eq(_p13,
       Play) ? Pause : _U.cmp(score1,
       score2) > 0 ? RiskScored : _U.cmp(score2,
       score1) > 0 ? SalesScored : _p13;
       var newBall = _U.eq(newState,RiskScored) || _U.eq(newState,
       SalesScored) ? newBallPlease : _U.eq(_p13,
       Pause) ? _p8 : A4(updateBall,_p14,_p8,_p11,_p12);
+      var newDelta = !_U.eq(score1,score2) || (_U.eq(_p13,
+      Play) || _U.eq(_p13,Pause)) ? 0 : _p7.deltaState + 10;
       return _U.update(_p7,
-      {space: _p17
-      ,state: newState
+      {state: newState
       ,ball: newBall
-      ,player1: player1New
-      ,player2: player2New
+      ,player1: A5(updatePlayer,_p14,_p15.y,_p15.x,score1,_p11)
+      ,player2: A5(updatePlayer,_p14,_p16.y,_p16.x,score2,_p12)
       ,goal1: _p9
       ,goal2: _p10
       ,deltaState: newDelta});
    });
    var gameState = A3($Signal.foldp,update,defaultGame,input);
+   var goalArea = halfWidth / 4;
    var halfway = A2($Graphics$Collage.traced,
    $Graphics$Collage.dashed($Color.white),
    $Graphics$Collage.path(_U.list([{ctor: "_Tuple2"
                                    ,_0: 0
                                    ,_1: 0 - halfHeight}
                                   ,{ctor: "_Tuple2",_0: 0,_1: halfHeight}])));
-   var goalArea = halfWidth / 4;
    var goalRedLine = A2($Graphics$Collage.traced,
    $Graphics$Collage.dashed($Color.white),
    $Graphics$Collage.path(_U.list([{ctor: "_Tuple2"
@@ -8863,9 +8876,9 @@ Elm.Main.make = function (_elm) {
                              ,halfHeight: halfHeight
                              ,halfWidth: halfWidth
                              ,maxVelocity: maxVelocity
+                             ,scoredTicker: scoredTicker
                              ,Play: Play
                              ,Pause: Pause
-                             ,PauseReset: PauseReset
                              ,RiskScored: RiskScored
                              ,SalesScored: SalesScored
                              ,Ball: Ball
@@ -8879,37 +8892,35 @@ Elm.Main.make = function (_elm) {
                              ,goal: goal
                              ,newBallPlease: newBallPlease
                              ,defaultGame: defaultGame
-                             ,checkSpaceBarState: checkSpaceBarState
                              ,near: near
                              ,within: within
                              ,update: update
                              ,playerImpetus: playerImpetus
                              ,limitMaxVelocity: limitMaxVelocity
                              ,updateBall: updateBall
-                             ,resetPlayer: resetPlayer
                              ,updatePlayer: updatePlayer
                              ,updatePosition: updatePosition
                              ,stepV: stepV
-                             ,txt: txt
-                             ,txtBold: txtBold
-                             ,msg: msg
-                             ,title: title
-                             ,pitchGreen: pitchGreen
-                             ,textGreen: textGreen
+                             ,goalArea: goalArea
                              ,field: field
                              ,halfway: halfway
-                             ,goalArea: goalArea
-                             ,goalRed: goalRed
                              ,goalRedLine: goalRedLine
-                             ,goalBlue: goalBlue
+                             ,goalRed: goalRed
                              ,goalBlueLine: goalBlueLine
+                             ,goalBlue: goalBlue
                              ,goalCelebration: goalCelebration
                              ,rejected: rejected
                              ,launched: launched
                              ,menuItems: menuItems
                              ,view: view
                              ,generateColor: generateColor
+                             ,pitchGreen: pitchGreen
+                             ,textGreen: textGreen
+                             ,txtBold: txtBold
+                             ,txt: txt
                              ,numGen: numGen
+                             ,msg: msg
+                             ,title: title
                              ,make: make
                              ,makeGoal: makeGoal
                              ,makePlayer: makePlayer
@@ -8917,4 +8928,4 @@ Elm.Main.make = function (_elm) {
                              ,delta: delta
                              ,input: input
                              ,main: main};
-};</script></head><body><script type="text/javascript">Elm.fullscreen(Elm.Main)</script></body></html>
+};
